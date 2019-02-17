@@ -128,7 +128,7 @@ open class SwapIdentitiesException @JvmOverloads constructor(message: String, ca
 
 // This only exists for backwards compatibility
 @InitiatedBy(SwapIdentitiesFlow::class)
-private class SwapIdentitiesHandler(private val otherSide: FlowSession) : FlowLogic<Unit>() {
+class SwapIdentitiesHandler(private val otherSide: FlowSession) : FlowLogic<Unit>() {
     @Suspendable
     override fun call() {
         subFlow(SwapIdentitiesFlow(otherSide))
