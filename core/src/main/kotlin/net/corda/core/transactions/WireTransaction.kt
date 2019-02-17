@@ -196,12 +196,15 @@ class WireTransaction(componentGroups: List<ComponentGroup>, val privacySalt: Pr
         // upgraded, not downgraded. We don't use resolvedInputs here to keep it lazy. TODO: why?
         // We do this resolution now instead of in LedgerTransaction because here we have the function to map
         // StateRefs to their attachments directly.
-        val appVersionsInInputs: Map<ContractClassName, Version> = serializedResolvedInputs
-                .map { it.toStateAndRef() }
-                .groupBy { it.state.contract }
-                .mapValues { (_ , statesAndRefs) ->
-                    statesAndRefs.map { resolveContractAttachment(it.ref).contractVersion }.max() ?: DEFAULT_CORDAPP_VERSION
-                }
+//        val appVersionsInInputs: Map<ContractClassName, Version> = serializedResolvedInputs
+//                .map { it.toStateAndRef() }
+//                .groupBy { it.state.contract }
+//                .mapValues { (_ , statesAndRefs) ->
+//                    statesAndRefs.map { resolveContractAttachment(it.ref).contractVersion }.max() ?: DEFAULT_CORDAPP_VERSION
+//                }
+        // The versions of input states are no longer used.
+        // TODO - remove from the ledger transaction?
+        val appVersionsInInputs: Map<ContractClassName, Version> = emptyMap()
 
         val ltx = LedgerTransaction.create(
                 resolvedInputs,
